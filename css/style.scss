@@ -14,7 +14,7 @@ $black_italic: rubikblack_italic, Helvetica, Arial, sans-serif;
 $black: rubikblack, Helvetica, Arial, sans-serif;
 
 //Classes e seletores genéricos
-html, body { max-width: 1920px; margin: 0 auto;
+html, body { max-width: 1920px; margin: 0 auto; background: #f6f6f6;
     @media all and (max-width: 997px) { -webkit-overflow-scrolling: touch; }
 }
 
@@ -41,8 +41,30 @@ header {
 }
 
 //Home
-section#home { display: flex; height: 500px; align-items: center; justify-content: center; flex-direction: column;
+section.shots { display: block; width: 100%; padding: 25px 20px 0;
+  h1 { font:: 30px/30px $medium; letter-spacing: -1px; margin-bottom: 75px; }
 
+  ul.shots-list { width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: center; margin-bottom: 25px; flex-flow: row wrap;
+    li { display: flex; width: 20%; margin: 0 10px 70px; flex-direction: column; background: #fff; align-items: center; padding-bottom: 5px; box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.2); border-radius: 3px;
+      @media all and (max-width: 997px) { width: 100%; }
+
+      img.thumb { width: 100%; display: block; margin-bottom: 10px; border-top-left-radius: 3px; border-top-right-radius: 3px; }
+
+      .shot-info { display: flex; width: 100%; flex-direction: row; justify-content: center;
+        div { display: flex; flex-direction: row; align-items: center; margin: 0 5px 10px;
+          i.icon, span { color: #BBBBBB; }
+
+          i.icon { font-size: 16px; }
+          span   { font: 12px/12px $regular; padding-left: 5px; }
+        }
+      }
+
+      .author-info { display: flex; flex-direction: row; align-items: center;
+        img  { width: 24px; height: 24px; display: block; border-radius: 12px; }
+        a    { font: 14px/14px $regular; padding-left: 5px; color: lighten(#000, 50%); }
+      }
+    }
+  }
 }
 
 section.popup {
