@@ -18,7 +18,7 @@
         <link href="/dist/css/style.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
-<body>
+<body ng-controller='shotsController'>
     <main>
         <header class='wrapper'>
           <ul>
@@ -31,42 +31,45 @@
           <h1>Shots</h1>
 
           <form>
-            <input type="text" name="search" value="" required/>
-            <label class="placeholder" for='search'>Pesquisar por shots</label>
+            <input type="text" name="search" value="" ng-model="item.query.title" required/>
+            <label class="placeholder" for='search'>Pesquisar por titulo</label>
           </form>
 
+          <button class='switch desktop'>
+            <i class="material-icons icon icon-1">photo_size_select_actual</i>
+            <i class="material-icons icon icon-2 disable">photo_size_select_large</i>
+          </button>
+
           <ul class='shots-list'>
-            <li>
-              <div class="thumb-wrapper">
-                <img src='https://d13yacurqjgara.cloudfront.net/users/1/screenshots/471756/sasquatch_teaser.png' class='thumb'/>
+            <li ng-repeat="item in shotsList | filter: item.query | orderBy: name">
+              <div class="thumb-wrapper" ng-click='openShot(item.id)'>
+                <img ng-src='{{item.images.normal}}' class='thumb'/>
 
                 <div class="shot-info">
-                  <p class='title'>Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
-                  <div class="description">
-                    <p>Quick, messy, five minute sketch of something that might become a fictional something.</p>
-                  </div>
+                  <p class='title'>{{item.title}}</p>
+                  <div class="description" ng-bind-html="item.description"></div>
                 </div>
               </div>
 
               <div class='shot-stats'>
                 <div>
                   <i class="material-icons icon">remove_red_eye</i>
-                  <span class='count'>2,182</span>
+                  <span class='count'>{{item.views_count}}</span>
                 </div>
                 <div>
                   <i class="material-icons icon">mode_comment</i>
-                  <span class='count'>2,182</span>
+                  <span class='count'>{{item.comments_count}}</span>
                 </div>
                 <div>
                   <i class="material-icons icon">favorite</i>
-                  <span class='count'>2,182</span>
+                  <span class='count'>{{item.likes_count}}</span>
                 </div>
               </div>
 
               <div class='author-info'>
-                <img src='https://cdn.dribbble.com/users/1/avatars/small/f7f4d84953eec9ad0f0aed3022433af4.jpg?1479332194'/>
-                <a href="https://dribbble.com/simplebits" target='_blank'>
-                  Dan Cederholm
+                <img ng-src='{{item.user.avatar_url}}'/>
+                <a ng-href='{{item.user.html_url}}' target='_blank'>
+                  {{item.user.name}}
                 </a>
               </div>
             </li>
@@ -76,45 +79,40 @@
         <section class="popup">
           <div class="container">
               <div class="inner-content">
-                 <button class='close'>Fechar</button>
+                 <button class='close' ng-click='closeShot()'>Fechar</button>
 
                   <div class="wrapper">
                     <ul class='shots-list'>
                       <li>
                         <div class="thumb-wrapper">
-                          <img src='https://d13yacurqjgara.cloudfront.net/users/1/screenshots/471756/sasquatch_teaser.png' class='thumb'/>
+                          <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAJYCAMAAACtqHJCAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAehJREFUeNrtwQENAAAAwqD3T20PBxQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD8GFXBAAFNIxWUAAAAAElFTkSuQmCC' class='transparent-img'/>
 
-                          <div class="shot-info">
-                            <p class='title'>Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
-                            <div class="description">
-                              <p>Quick, messy, five minute sketch of something that might become a fictional something.</p>
-                            </div>
-                          </div>
+                          <img ng-src='{{shot.images.hidpi}}' class='thumb'/>
 
-                          <button class='like'>
-                            <i class="material-icons icon">favorite</i>
+                          <button class='like' ng-click='likeShot(shot.id)'>
+                            <i class="material-icons icon" ng-class='{ liked: shot.liked }'>favorite</i>
                           </button>
                         </div>
 
                         <div class='shot-stats'>
                           <div>
                             <i class="material-icons icon">remove_red_eye</i>
-                            <span class='count'>2,182</span>
+                            <span class='count'>{{shot.views_count}}</span>
                           </div>
                           <div>
                             <i class="material-icons icon">mode_comment</i>
-                            <span class='count'>2,182</span>
+                            <span class='count'>{{shot.comments_count}}</span>
                           </div>
                           <div>
                             <i class="material-icons icon">favorite</i>
-                            <span class='count'>2,182</span>
+                            <span class='count'>{{shot.likes_count}}</span>
                           </div>
                         </div>
 
                         <div class='author-info'>
-                          <img src='https://cdn.dribbble.com/users/1/avatars/small/f7f4d84953eec9ad0f0aed3022433af4.jpg?1479332194'/>
-                          <a href="https://dribbble.com/simplebits" target='_blank'>
-                            Dan Cederholm
+                          <img ng-src='{{shot.user.avatar_url}}'/>
+                          <a ng-href='{{shot.user.html_url}}' target='_blank'>
+                            {{shot.user.name}}
                           </a>
                         </div>
                       </li>

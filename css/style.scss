@@ -42,7 +42,7 @@ header {
 
 //Home
 section {
-  &.shots { display: flex; width: 100%; padding: 25px 20px 0; align-items: flex-start; justify-content: flex-start; flex-direction: column; }
+  &.shots { display: flex; width: 100%; padding: 25px 20px 0; align-items: flex-start; justify-content: flex-start; flex-direction: column; position: relative; }
 
   h1 { font: 30px/30px $medium; letter-spacing: -1px; margin-bottom: 25px; }
 
@@ -65,11 +65,19 @@ section {
     }
   }
 
+  button.switch { display: block; position: absolute; top: 20px; right: 20px;
+    i { font-size: 36px; color: #565656;
+      &.disable { display: none; }
+    }
+  }
+
   ul.shots-list { width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: center; margin-bottom: 25px; flex-flow: row wrap;
-    li { display: flex; width: 24%; margin: 0 10px 70px; flex-direction: column; background: #fff; align-items: center; padding-bottom: 5px; box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.2); border-radius: 3px;
+    li { display: flex; width: 20%; margin: 0 10px 70px; flex-direction: column; background: #fff; align-items: center; padding-bottom: 5px; box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.2); border-radius: 3px;
       @media all and (max-width: 997px) { width: 100%; }
 
-      .thumb-wrapper { display: block; width: 100%; position: relative; cursor: pointer;
+      &.bigger { width: 45%; }
+
+      .thumb-wrapper { display: block; width: 100%; position: relative; cursor: pointer; overflow: hidden;
         img.thumb { width: 100%; display: block; border-top-left-radius: 3px; border-top-right-radius: 3px; }
 
         .shot-info { width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: rgba(#f6f6f6, 0.9); padding: 10px; opacity: 0; transition: opacity 0.3s ease; will-change: opacity;
@@ -78,7 +86,7 @@ section {
           }
 
           .description {
-            p { font-family: $regular; }
+            p { font: 12px/12px $regular; word-wrap: break-word; }
           }
         }
       }
@@ -101,7 +109,7 @@ section {
 }
 
 //Popup
-section.popup { width: 100%; height: 100%; top: 0; left: 0; position: fixed; overflow: hidden; z-index: 338; background: rgba(#000, 0.2); transition: opacity 0.3s ease; display: block; opacity: 1; display: none; opacity: 0;
+section.popup { width: 100%; height: 100%; top: 0; left: 0; position: fixed; overflow: hidden; z-index: 338; background: rgba(#000, 0.5); transition: opacity 0.3s ease; display: block; opacity: 1; display: none; opacity: 0;
     &.open { opacity: 1; }
 
     .container { top: 50%; left: 0; width: 100%; position: absolute; margin-top: -237px !important;
@@ -117,10 +125,14 @@ section.popup { width: 100%; height: 100%; top: 0; left: 0; position: fixed; ove
             }
 
             ul.shots-list li { width: 100%; margin: 0;
-              .thumb-wrapper { cursor: auto; }
+              .thumb-wrapper { cursor: auto;
+                img.thumb { position: absolute; top: 0; left: 0; }
+              }
 
               button.like { position: absolute; top: 10px; right: 10px;
-                i.icon { font-size: 40px; color: rgba(#9E9E9E, 0.9); }
+                i.icon { font-size: 40px; color: rgba(#9E9E9E, 0.9);
+                  &.liked { color: #f44336; }
+                }
               }
             }
         }

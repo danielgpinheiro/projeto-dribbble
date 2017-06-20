@@ -1,8 +1,10 @@
-var popupBehavior = function(action) {
+let shotsBigSize = false
+
+let popupBehavior = (action) => {
     if(action == "open") {
         $("section.popup").css({"display": "block"});
 
-        setTimeout(function() {
+        setTimeout(() => {
             $("section.popup").addClass("open");
             $("section.popup" + " .inner-content").addClass("open");
 
@@ -16,7 +18,7 @@ var popupBehavior = function(action) {
         $("section.popup").removeClass("open");
         $("section.popup" + " .inner-content").removeClass("open");
 
-        setTimeout(function() {
+        setTimeout(() => {
             $("html, body").removeClass("overflowHidden");
             $("section.popup").css({"display": "none"});
         }, 300);
@@ -25,18 +27,42 @@ var popupBehavior = function(action) {
     return;
 };
 
-$(document).ready(function() {
+let changeShotSize = () => {
+  $('section button.switch i').removeClass('disable')
+
+  if(!shotsBigSize) {
+    $('section ul.shots-list li').addClass('bigger')
+    $('.icon-1').addClass('disable')
+
+    shotsBigSize = true;
+  }
+
+  else {
+    $('section ul.shots-list li').removeClass('bigger')
+    $('.icon-2').addClass('disable')
+
+    shotsBigSize = false;
+  }
+}
+
+$(document).ready(() => {
     picturefill();
 
-    $("#open-popup").click(function(e) {
+    $("#open-popup").click((e) => {
       e.preventDefault();
 
       popupBehavior('open')
     })
 
-    $("#close-popup").click(function(e) {
+    $("#close-popup").click((e) => {
       e.preventDefault();
 
       popupBehavior('close')
+    })
+
+    $("button.switch").click((e) => {
+      e.preventDefault();
+
+      changeShotSize()
     })
 });

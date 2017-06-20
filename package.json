@@ -23,7 +23,10 @@
     "url": "https://github.com/lightwish01/projeto-dribbble/issues"
   },
   "homepage": "https://github.com/lightwish01/projeto-dribbble#readme",
-  "dependencies": {},
+  "dependencies": {
+    "angular-oauth2": "^4.1.1",
+    "query-string": "^4.3.4"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
