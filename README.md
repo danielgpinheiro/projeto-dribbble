@@ -2,4 +2,4 @@
 
 run project in terminal
 
-npm start
+npm install && npm start
